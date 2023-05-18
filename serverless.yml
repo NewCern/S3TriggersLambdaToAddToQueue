@@ -12,6 +12,9 @@ provider:
         - s3:*
       Resource: '*'
 
+plugins:
+  - serverless-dotenv-plugin
+
 custom:
   xmlFileBucket: files-will-be-processed-to-sqs-here
 

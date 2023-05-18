@@ -54,8 +54,6 @@ const handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
             Key: key,
             ContentType: body.mime,
             Bucket: "files-will-be-processed-to-sqs-here",
-            // Bucket: process.env.xmlUploadBucket!, 
-            // ACL: 'public-read',
         })
             .promise();
         const response = {

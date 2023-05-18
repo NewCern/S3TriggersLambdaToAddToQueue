@@ -2,9 +2,11 @@ import { S3Handler } from 'aws-lambda';
 import { S3EventRecord } from 'aws-lambda/trigger/s3';
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
 
+import process from 'process';
+
 // need to utilize environment variables here
 const sqs = new SQSClient({ region: "us-east-1" });
-const queueUrl = "https://sqs.us-east-1.amazonaws.com/233784350905/xml-file-added-to-queue";
+const queueUrl = process.env.SQS_URL;
 
 export const handler: S3Handler = async (event): Promise<any> => {
   try {

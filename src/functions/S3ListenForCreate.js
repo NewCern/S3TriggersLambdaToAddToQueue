@@ -8,12 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
 const client_sqs_1 = require("@aws-sdk/client-sqs");
+const process_1 = __importDefault(require("process"));
 // need to utilize environment variables here
 const sqs = new client_sqs_1.SQSClient({ region: "us-east-1" });
-const queueUrl = "https://sqs.us-east-1.amazonaws.com/233784350905/xml-file-added-to-queue";
+const queueUrl = process_1.default.env.SQS_URL;
 const handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Process the S3 create event
