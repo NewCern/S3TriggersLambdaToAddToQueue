@@ -21,9 +21,7 @@ export const handler = async (event: any): Promise<any> => {
                 Body: buffer,
                 Key: key,
                 ContentType: body.mime,
-                Bucket: "upload-to-s3-for-queue"!,
-                // Bucket: process.env.xmlUploadBucket!, 
-                // ACL: 'public-read',
+                Bucket: "files-will-be-processed-to-sqs-here"!,
             })
             .promise();
         const response = {

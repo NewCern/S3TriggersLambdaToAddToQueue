@@ -10,6 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
+const client_sqs_1 = require("@aws-sdk/client-sqs");
+// need to utilize environment variables here
+const sqs = new client_sqs_1.SQSClient({ region: "us-east-1" });
+const queueUrl = "https://sqs.us-east-1.amazonaws.com/233784350905/xml-file-added-to-queue";
 const handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Process the S3 create event
@@ -19,9 +23,17 @@ const handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
                 const bucketName = record.s3.bucket.name;
                 const objectKey = record.s3.object.key;
                 // Perform actions on the newly created object
-                console.log(`New object created in bucket: ${bucketName}`);
-                console.log(`Object key: ${objectKey}`);
-                // ... additional processing logic
+                // Send a message to the SQS queue
+                const message = {
+                    event: 'objectCreated:Put',
+                    bucket: bucketName,
+                    key: objectKey
+                };
+                const command = new client_sqs_1.SendMessageCommand({
+                    QueueUrl: queueUrl,
+                    MessageBody: JSON.stringify(message)
+                });
+                yield sqs.send(command);
             }
         }
         // Return a successful response

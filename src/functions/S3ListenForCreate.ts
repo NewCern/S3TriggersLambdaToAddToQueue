@@ -16,9 +16,6 @@ export const handler: S3Handler = async (event): Promise<any> => {
         const objectKey: string = record.s3.object.key;
 
         // Perform actions on the newly created object
-        console.log(`New object created in bucket: ${bucketName}`);
-        console.log(`Object key: ${objectKey}`);
-
         // Send a message to the SQS queue
         const message = {
           event: 'objectCreated:Put',

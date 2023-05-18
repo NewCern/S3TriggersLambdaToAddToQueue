@@ -53,7 +53,7 @@ const handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
             Body: buffer,
             Key: key,
             ContentType: body.mime,
-            Bucket: "upload-to-s3-for-queue",
+            Bucket: "files-will-be-processed-to-sqs-here",
             // Bucket: process.env.xmlUploadBucket!, 
             // ACL: 'public-read',
         })
